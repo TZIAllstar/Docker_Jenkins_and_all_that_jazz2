@@ -1,3 +1,5 @@
+def gv
+
 pipeline{
     agent any
     environment {
@@ -12,17 +14,15 @@ pipeline{
                 
     }    
     stages {
+        stage ("init"){
+            script{
+                gv = load "script.groovy"
+
+            }
+        }
         stage("build"){
-            /*when{
-                expression {
-                    env.BRANCH_NAME == 'dev' 
-                }
-            }*/
-
             steps {
-
-                echo 'building the application..'                    
-                echo "building version ${NEW_VERSION}"
+                gv.buildapp()
             }
         }
         stage("test"){
